@@ -1,11 +1,15 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable react/jsx-key */
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
+// import Link from 'next/link';
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+export default function Home({ data }) {
   return (
     <>
       <Head>
@@ -25,28 +29,31 @@ export default function Home() {
         </nav>
       </header>
       <main className={styles.main}>
-        <a href="" >
-          <a href=""></a>
-          <img src="" alt="" />
-          <h2>Quantum Fitness</h2>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae nobis delectus neque vitae blanditiis! Obcaecati, exercitationem modi. Laboriosam tenetur repellat quisquam temporibus fugiat. Dolore dolores a unde sint, doloremque ullam!</p>
-        </a>
-        <a href="" >
-          <a href=""></a>
-          <img src="" alt="" />
-          <h2>Quantum Fitness evento 1</h2>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae nobis delectus neque vitae blanditiis! Obcaecati, exercitationem modi. Laboriosam tenetur repellat quisquam temporibus fugiat. Dolore dolores a unde sint, doloremque ullam!</p>
-        </a>
-        <a href="" >
-          <a href=""></a>
-          <img src="" alt="" />
-          <h2>Quantum Fitness evento 2</h2>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae nobis delectus neque vitae blanditiis! Obcaecati, exercitationem modi. Laboriosam tenetur repellat quisquam temporibus fugiat. Dolore dolores a unde sint, doloremque ullam!</p>
-        </a>
+        {data.map((ev) => (
+          <a key={ev.id} href={`/events/${ev.id}`}>
+            {" "}
+            <Image width={200} height={200} src={ev.image} alt={ev.title} /> <h2>{ev.title}</h2>
+            <p>{ev.description}</p>
+          </a>
+        ))}
+        
       </main>
-      <footer className={styles.footer} >
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minus quibusdam laudantium, quis rerum praesentium pariatur libero nesciunt eaque quod culpa sit, tempora corrupti repellendus animi deserunt consequuntur ipsam dolorem placeat?</p>
+      <footer className={styles.footer}>
+        <p>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minus
+          quibusdam laudantium, quis rerum praesentium pariatur libero nesciunt
+          eaque quod culpa sit, tempora corrupti repellendus animi deserunt
+          consequuntur ipsam dolorem placeat?
+        </p>
       </footer>
     </>
   );
+}
+export async function getServerSideProps() {
+  const { events_categories } = await import("../data/data.json");
+  return {
+    props: {
+      data: events_categories,
+    },
+  };
 }
