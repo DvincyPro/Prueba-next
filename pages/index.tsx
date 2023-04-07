@@ -1,11 +1,9 @@
-/* eslint-disable @next/next/no-html-link-for-pages */
-/* eslint-disable @next/next/no-img-element */
-/* eslint-disable react/jsx-key */
+
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
-// import Link from 'next/link';
+import Link from 'next/link';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,22 +19,29 @@ export default function Home({ data }) {
       <header>
         <h2>THE ENERGY FITNESS SPECIALIST</h2>
         <h1>Quantum Fitness</h1>
-        <nav className="menu" id="menu">
-          <a href="/">Home</a>
-          <a href="/events">Servicios</a>
-          <a href="/about-us">About me</a>
+        <nav>
+          <Link href="/" passHref>
+          <div>Home</div>
+          </Link>
+          <Link href="/events" passHref>
+          <div>Servicios</div>
+          </Link>
+          <Link href="/about-us" passHref>
+          <div >About me</div>
+          </Link>
           {/* <a href="">Contacto</a> */}
         </nav>
       </header>
       <main className={styles.main}>
-        {data.map((ev) => (
-          <a key={ev.id} href={`/events/${ev.id}`}>
-            {" "}
-            <Image width={200} height={200} src={ev.image} alt={ev.title} /> <h2>{ev.title}</h2>
-            <p>{ev.description}</p>
-          </a>
+        {data.map((e) => (
+          <Link key={e.id} href={`/events/${e.id}`} passHref>
+          <div>
+            <Image width={200} height={200} src={e.image} alt={e.title} />{" "}
+            <h2>{e.title}</h2>
+            <p>{e.description}</p>
+          </div>
+          </Link>
         ))}
-        
       </main>
       <footer className={styles.footer}>
         <p>

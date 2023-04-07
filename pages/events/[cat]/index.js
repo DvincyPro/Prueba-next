@@ -1,17 +1,26 @@
-/* eslint-disable @next/next/no-html-link-for-pages */
-const EventsCatPage = () => {
+import Image from "next/image";
+import Link from "next/link";
+
+import React from "react";
+
+const EventsCatPage = ({ data, pageName }) => {
+  if (!data || !data.length) {
+    return <div>No events found</div>;
+  }
+
   return (
     <div>
-      <h1>Events in Londom</h1>
-      <a href="/events/london/ev1">Event 1</a>
-      <br />
-      <a href="/events/sanFrancisco">Event 2</a>
-      <br />
-      <a href="/events/barcelona">Event 3</a>
-      <br />
-      <a href="/events/madrid">Event 4</a>
-      <br />
-      <a href="/events/habana">Event 5</a>
+      <h1>Events in {pageName}</h1>
+      {data.map((e) => (
+        <Link key={e.id} href={`/events/${e.city}/${e.id}`} passHref>
+          <div>
+            <Image width={200} height={200} src={e.image} alt={e.title} />
+            <h2>{e.title}</h2>
+            <p>{e.description}</p>
+          </div>
+        </Link>
+        
+      ))}
     </div>
   );
 };
@@ -23,11 +32,11 @@ export async function getStaticPaths() {
   const allPaths = events_categories.map((event) => {
     return {
       params: {
-        cat: event.id.toString(),
+        cat: event.id,
       },
     };
   });
-  console.log(allPaths);
+ 
   return {
     paths: allPaths,
     fallback: false,
@@ -35,12 +44,16 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  console.log(context);
   const id = context?.params.cat;
   const { allEvents } = await import("/data/data.json");
 
+  if (!allEvents || !allEvents.length) {
+    return {
+      notFound: true,
+    };
+  }
+
   const data = allEvents.filter((event) => event.city === id);
-  
-console.log(data);
-  return { props: {} };
+
+  return { props: { data, pageName: id } };
 }

@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-no-undef */
 
 import Image from "next/image";
+import Link from "next/link";
 /* eslint-disable jsx-a11y/alt-text */
 const EventsPage = ({ data }) => {
   return (
@@ -8,10 +9,12 @@ const EventsPage = ({ data }) => {
       <h1>Events page</h1>
       <div>
         {data.map((event) => (
-          <a key={event.id} href={`/events/${event.id}`}>
+          <Link key={event.id} href={`/events/${event.id}`} passHref>
+          <div>
             <Image src={event.image}alt={event.title}width={300}height={300}/>
             <h2>{event.title}</h2>
-          </a>
+          </div>
+          </Link>
         ))}
       </div>
     </div>
