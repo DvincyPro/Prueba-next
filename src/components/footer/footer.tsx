@@ -1,0 +1,10 @@
+export const Footer = () => (
+    <footer>
+        <p>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minus
+          quibusdam laudantium, quis rerum praesentium pariatur libero nesciunt
+          eaque quod culpa sit, tempora corrupti repellendus animi deserunt
+          consequuntur ipsam dolorem placeat?
+        </p>
+      </footer>
+);

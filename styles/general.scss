@@ -1,0 +1,17 @@
+header{
+    height: 300px;
+    display: flex;
+    justify-content: space-between;
+    .title{
+        font-size: 16px;
+    }
+    .title_second{
+        font-size: 10px;
+    }
+    .nav{
+        display: flex;
+        .link{
+            margin: 2px;
+        }
+    }
+}

@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
+
+
 /* eslint-disable jsx-a11y/alt-text */
 const EventsPage = ({ data }) => {
   return (
