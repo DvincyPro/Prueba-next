@@ -2,8 +2,8 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
 import { HomePage } from "@/src/components/home/home_page";
-const inter = Inter({ subsets: ["latin"] });
 
+const inter = Inter({ subsets: ["latin"] });
 
 export default function Home({ data }) {
   return (

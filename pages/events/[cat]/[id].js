@@ -1,17 +1,56 @@
+import React, { useRef, useState } from "react";
+import Image from "next/image";
+import { useRouter } from "next/router";
 
-const EventPage = ({data}) => {
-    // console.log(data);
+const EventPage = ({ data }) => {
+  const inputEmail = useRef();
+  const router = useRouter();
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const emailValue = inputEmail.current.value;
+    const eventId = router?.query.id;
+    try {
+      const response = await fetch("/api/email-registration", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: emailValue, eventId }),
+      });
+
+      if(!response.ok) throw new Error(`${response.status}`)
+      const data = await response.json(); 
+      console.log('POST',data);
+
+
+
+
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
-    <div>
-        <Image src={data.image} width={1000} height={500} alt = {data.title} />
-        <h1>{data.title}</h1>
-        <p>{data.description}</p>
+    <div className="event_single_page">
+      <h1>{data.title}</h1>
+      <Image src={data.image} width={1000} height={500} alt={data.title} />
+      <p>{data.description}</p>
+      <form onSubmit={onSubmit} className="email_registration">
+        <label>Get Register for this event</label>
+        <input
+          ref={inputEmail}
+          type="email"
+          id="email"
+          placeholder="Insert your email here!!"
+        />
+        <button type="submit">Submit</button>
+      </form>
     </div>
   );
 };
 
 export default EventPage;
-import Image from "next/image";
 
 export async function getStaticPaths() {
   const data = await import("/data/data.json");
@@ -32,11 +71,11 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-//   console.log(context);
+  //   console.log(context);
   const id = context.params.id;
   const { allEvents } = await import("/data/data.json");
   const eventData = allEvents.find((e) => id === e.id);
   return {
-    props: {data: eventData},
+    props: { data: eventData },
   };
 }

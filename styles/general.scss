@@ -1,17 +1,100 @@
 header{
-    height: 300px;
-    display: flex;
-    justify-content: space-between;
+    height: 130px;
     .title{
-        font-size: 16px;
+        font-size: 25px;
+        text-align: center;
+        margin: 0 auto;
     }
-    .title_second{
-        font-size: 10px;
-    }
-    .nav{
+    .panel{
         display: flex;
-        .link{
-            margin: 2px;
+        flex-direction: row-reverse;
+        background: linear-gradient(2deg, black, transparent);
+        .nav{
+            margin-top:30px ;
+            display: flex;
+            .link{
+                margin: 2px;
+                font-weight: 600;
+                font-size: 16px;
+            }
+        }
+        
+    }
+    
+}
+footer{
+    text-align: center;
+    margin-top: 5rem;
+    padding: 1rem;
+    background-color: #333;
+    color: #fff;
+
+}
+main{
+    width: 100%;
+    max-width: 1450px;
+    margin: auto;
+    padding: 30px;
+    min-height: 600px ;
+    .home_body{
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+        .card{
+            display: flex;
+            flex-direction: row;
+            gap: 30px;
+            justify-content: center;
+            align-content: center ;
+            align-items: center;
+            &:nth-child(even){
+                direction: rtl;
+            }
+            .img{
+                width: 40%;
+            }
+            .content{
+               width:50%;
+            }
+            
+        }
+    }
+}
+.event_single_page{
+    .email_registration{
+        margin-top: 25px;
+        label{
+            display: flex;
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-top: 25px;
+        }
+        input{
+            height: 40px;
+            min-width: 350px;
+            box-shadow: none;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            padding: 5px;
+        }
+        button{
+            text-transform: uppercase;
+            height: 40px;
+            min-width: 150px;
+            border-radius: 5px;
+            border: 1px solid #5f5a5a;
+            font-size: 16px;
+            font-weight: 600;
+            margin-left: 10px;
+            background: #dcfff3;
+            &:hover{
+                cursor: pointer;
+                background: #09d18b;
+                color: #fff;
+            }
         }
     }
 }
